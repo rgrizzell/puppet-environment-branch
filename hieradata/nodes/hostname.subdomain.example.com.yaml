@@ -1,0 +1,5 @@
+---
+classes:
+  #- 'httpd'
+
+#foo: "bash"

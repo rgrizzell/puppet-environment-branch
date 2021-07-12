@@ -1,0 +1,10 @@
+# Top-level Global Hieradata Defaults
+---
+classes:
+  - 'common'
+
+packages:
+  absent: []
+  latest: []
+  present:
+    #- 'vim'

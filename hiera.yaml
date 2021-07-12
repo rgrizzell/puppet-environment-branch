@@ -1,0 +1,31 @@
+---
+version: 5
+defaults:
+  datadir: hieradata
+  data_hash: yaml_data
+hierarchy:
+
+  # Data specific to a node to allow for easy overrides
+  - name: "Per-node data"
+    paths:
+      - "nodes/%{trusted.certname}.yaml"
+
+  # Sensitive data that needs to be encrypted at rest.
+  - name: "Secure encrypted data"
+    lookup_key: eyaml_lookup_key
+    paths:
+      - "secure.eyaml"
+    options:
+      pkcs7_private_key: "%{settings::confdir}/keys/secure.private.pkcs7.pem"
+      pkcs7_public_key: "%{settings::codedir}/environments/%{::environment}/hieradata/eyaml_pubkeys/secure.public.pkcs7.pem"
+
+  # Data specific to a domain/subdomain.
+  - name: "Per-domain data"
+    paths:
+      - "domains/%{facts.domain}.yaml"
+
+  # Global data
+  - name: "Environment data"
+    paths:
+      - "%{::environment}.yaml"
+      - "common.yaml"
